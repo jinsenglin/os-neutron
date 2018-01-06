@@ -53,6 +53,12 @@ OpenStack Neutron ML2
 
 https://zhuanlan.zhihu.com/p/29833977
 
+Neutron中的service plugin都定义在 neutron/neutron/services  这个目录, e.g.
+
+* router
+* qos
+* metering
+
 圖 1. Neutron Server
 
 ![scenario](https://pic3.zhimg.com/50/v2-88601bcf226283ce65980e16c082e0c8_hd.jpg)
