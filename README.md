@@ -120,3 +120,9 @@ os-network update for plus fwaasv1
 
 service neutron-l3-agent restart
 ```
+
+# Entrypoint
+
+Tips: console script
+
+see ENTRYPOINT.md 
