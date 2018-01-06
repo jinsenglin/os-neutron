@@ -53,7 +53,9 @@ OpenStack Neutron ML2
 
 https://zhuanlan.zhihu.com/p/29833977
 
-Neutron中的service plugin都定义在 neutron/neutron/services  这个目录, e.g.
+core plugin vs. service plugin
+
+Neutron中的service plugin 都定义在 neutron/neutron/services  这个目录, e.g.
 
 * router
 * qos
