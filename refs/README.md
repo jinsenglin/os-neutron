@@ -30,4 +30,6 @@ ml2 extension driver, see neutron/neutron/extensions/, e.g.
 
 透過 extensions, 提供各种除了network，subnet，port之外的其他服务
 
+neutron-lbaas and neutron-fwaas are also ml2 extension drivers.
+
 ---
