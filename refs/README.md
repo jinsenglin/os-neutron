@@ -47,6 +47,14 @@ https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/in
 
 ![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img002.png)
 
+图 3. ML2 创建 Network 流程
+
+![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img003.png)
+
+图 4. ML2 创建 Port 流程
+
+![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img004.png)
+
 ---
 
 OpenStack Neutron ML2
