@@ -16,12 +16,12 @@ ml2 type driver, see neutron/neutron/plugins/ml2/drivers/, e.g.
 * vlan
 * vxlan
 
-ml2 mechanism driver, see neutron/neutron/neutron/plugins/ml2/drivers/, e.g.
+ml2 mechanism driver, see neutron/neutron/plugins/ml2/drivers/, e.g.
 
 * linuxbridge
 * openvswitch 
 
-ml2 extension driver, see neutron/neutron/extensions/, e.g.
+ml2 extension driver, see neutron/neutron/extensions/ (定義api) and neutron/neutron/plugins/ml2/extensions/, e.g.
 
 * router
 * qos
