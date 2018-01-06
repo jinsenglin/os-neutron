@@ -33,3 +33,17 @@ ml2 extension driver, see neutron/neutron/extensions/, e.g.
 neutron-lbaas and neutron-fwaas are also ml2 extension drivers.
 
 ---
+
+OpenStack Neutron ML2 Deep Dive
+
+https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/index.html
+
+图 1. ML2 与 Neutron L2 agents
+
+![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img001.png)
+
+图 2. ML2 框架
+
+![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img002.png)
+
+---
