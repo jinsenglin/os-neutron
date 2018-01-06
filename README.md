@@ -56,3 +56,19 @@ apt-get install -y neutron-lbaasv2-agent
 
 service neutron-lbaasv2-agent start
 ```
+
+---
+
+os-controller update for plus fwaasv1
+
+```
+neutron-db-manage --subproject neutron-fwaas upgrade head
+
+service neutron-server restart
+```
+
+os-network update for plus fwaasv1
+
+```
+service neutron-l3-agent restart
+```
