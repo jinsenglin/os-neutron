@@ -1,0 +1,16 @@
+[submodule "neutron"]
+	path = neutron
+	url = https://github.com/openstack/neutron.git
+	branch = stable/pike
+[submodule "neutron-fwaas"]
+	path = neutron-fwaas
+	url = https://github.com/openstack/neutron-fwaas.git
+	branch = stable/pike
+[submodule "neutron-lbaas"]
+	path = neutron-lbaas
+	url = https://github.com/openstack/neutron-lbaas.git
+	branch = stable/pike
+[submodule "networking-odl"]
+	path = networking-odl
+	url = https://github.com/openstack/networking-odl.git
+	branch = stable/pike
