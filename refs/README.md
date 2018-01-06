@@ -47,3 +47,17 @@ https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/in
 ![scenario](https://www.ibm.com/developerworks/cn/cloud/library/cl-cn-openstackneutronml2/img002.png)
 
 ---
+
+OpenStack Neutron ML2
+
+https://zhuanlan.zhihu.com/p/29833977
+
+圖 1. Neutron Server
+
+![scenario](https://pic3.zhimg.com/50/v2-88601bcf226283ce65980e16c082e0c8_hd.jpg)
+
+圖 2. ML2 Core Plugin
+
+![scenario](https://pic4.zhimg.com/50/v2-b24e7ba68f76e231566b6eae568222b7_hd.jpg)
+
+---
