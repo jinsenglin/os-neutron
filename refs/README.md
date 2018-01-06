@@ -23,6 +23,7 @@ ml2 mechanism driver, see neutron/neutron/neutron/plugins/ml2/drivers/, e.g.
 
 ml2 extension driver, see neutron/neutron/extensions/, e.g.
 
+* router
 * qos
 * securitygroup
 * metering
