@@ -188,3 +188,21 @@ neutron.ml2.mechanism_drivers =
 neutron.ml2.extension_drivers =
     port_security = neutron.plugins.ml2.extensions.port_security:PortSecurityExtensionDriver
 ```
+
+# SUMMARY 3
+
+Q: service plugin & service provider?
+
+service_providers example 1 (configure_neutron_fwaasv1)
+
+```
+    crudini --set /etc/neutron/neutron.conf service_providers service_provider FIREWALL:Iptables:neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver:default
+
+```
+
+service_providers example 2 (configure_neutron_lbaasv2_haproxy)
+
+```
+    crudini --set /etc/neutron/neutron_lbaas.conf service_providers service_provider LOADBALANCERV2:Haproxy:neutron_lbaas.drivers.haproxy.plugin_driver.HaproxyOnHostPluginDriver:default
+
+```
