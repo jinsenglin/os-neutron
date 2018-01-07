@@ -192,6 +192,7 @@ neutron.ml2.extension_drivers =
 # SUMMARY 3
 
 Q: service plugin & service provider?
+A: see SERVICE-TYPE-FRAMEWORK.md
 
 service_providers example 1 (configure_neutron_fwaasv1)
 
