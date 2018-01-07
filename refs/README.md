@@ -119,11 +119,15 @@ http://www.cnblogs.com/sammyliu/p/4622563.html
 
 ![scenario](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/5/html/Installation_and_Configuration_Guide/images/5113.png)
 
-圖 2. 未使用DVR
+圖 2. Neutron OpenvSwitch + GRE/VxLAN 虚拟网络
+
+![scenario](https://pinrojas.files.wordpress.com/2014/07/neutron-openstack-openvswitch-router-dnsmasq-gre-kionetworks-plug-in-tap-devices-instances-nova-compute-software-defined-networks-sdn-cloud-layer-4.jpg)
+
+圖 3. 未使用DVR
 
 ![scenario](https://wiki.openstack.org/w/images/thumb/a/a7/Architecuture-1.png/500px-Architecuture-1.png)
 
-圖 3. 使用DVR
+圖 4. 使用DVR
 
 ![scenario](https://wiki.openstack.org/w/images/thumb/9/99/Dvr-architecture.png/500px-Dvr-architecture.png)
 
