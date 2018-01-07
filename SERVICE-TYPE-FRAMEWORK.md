@@ -6,7 +6,7 @@ Those provider options should be specified in multiline form, one per provider i
 <service_type>:<name>:<driver>[:default]
 ```
 
-Example of quantum.conf section:
+Example of neutron.conf section:
 
 ```
 [service_providers] 
