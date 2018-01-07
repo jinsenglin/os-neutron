@@ -127,9 +127,9 @@ Tips: console script
 
 see ENTRYPOINT.md 
 
-# SUMMARY
+# SUMMARY 1
 
-neutron/neutron.conf
+/etc/neutron/neutron.conf
 
 ```
 [DEFAULT]
@@ -161,4 +161,30 @@ neutron-lbaas/setup.cfg
 [entry_points]
 neutron.service_plugins =
     lbaasv2 = neutron_lbaas.services.loadbalancer.plugin:LoadBalancerPluginv2
+```
+
+# SUMMARY 2
+
+/etc/neutron/plugins/ml2/ml2_conf.ini
+
+```
+[ml2]
+type_drivers = flat,vlan,vxlan
+mechanism_drivers = openvswitch,l2population
+extension_drivers = port_security
+```
+
+neutron/setup.cfg
+
+```
+[entry_points]
+neutron.ml2.type_drivers =
+    flat = neutron.plugins.ml2.drivers.type_flat:FlatTypeDriver
+    local = neutron.plugins.ml2.drivers.type_local:LocalTypeDriver
+    vlan = neutron.plugins.ml2.drivers.type_vlan:VlanTypeDriver
+neutron.ml2.mechanism_drivers =
+    openvswitch = neutron.plugins.ml2.drivers.openvswitch.mech_driver.mech_openvswitch:OpenvswitchMechanismDriver
+    l2population = neutron.plugins.ml2.drivers.l2pop.mech_driver:L2populationMechanismDriver
+neutron.ml2.extension_drivers =
+    port_security = neutron.plugins.ml2.extensions.port_security:PortSecurityExtensionDriver
 ```
