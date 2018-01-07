@@ -110,3 +110,16 @@ Neutron中的service plugin 都定义在 neutron/neutron/services  这个目录,
 ![scenario](https://pic4.zhimg.com/50/v2-b24e7ba68f76e231566b6eae568222b7_hd.jpg)
 
 ---
+
+学习 Neutron 系列文章：Neutron 所实现的虚拟化网络
+
+http://www.cnblogs.com/sammyliu/p/4622563.html
+
+圖 1. 未使用DVR
+
+![scenario](https://wiki.openstack.org/w/images/thumb/a/a7/Architecuture-1.png/500px-Architecuture-1.png)
+
+圖 2. 使用DVR
+
+![scenario](https://wiki.openstack.org/w/images/thumb/9/99/Dvr-architecture.png/500px-Dvr-architecture.png)
+
