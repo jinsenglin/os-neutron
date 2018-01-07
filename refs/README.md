@@ -115,11 +115,15 @@ Neutron中的service plugin 都定义在 neutron/neutron/services  这个目录,
 
 http://www.cnblogs.com/sammyliu/p/4622563.html
 
-圖 1. 未使用DVR
+圖 1. 这是 RedHat 提供的一个 OpenStack Cloud network 网络架构
+
+![scenario](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/5/html/Installation_and_Configuration_Guide/images/5113.png)
+
+圖 2. 未使用DVR
 
 ![scenario](https://wiki.openstack.org/w/images/thumb/a/a7/Architecuture-1.png/500px-Architecuture-1.png)
 
-圖 2. 使用DVR
+圖 3. 使用DVR
 
 ![scenario](https://wiki.openstack.org/w/images/thumb/9/99/Dvr-architecture.png/500px-Dvr-architecture.png)
 
