@@ -4,6 +4,32 @@ https://docs.openstack.org/neutron/latest/contributor/index.html#neutron-interna
 
 ---
 
+Neutron Configuration Options
+
+https://docs.openstack.org/neutron/latest/configuration/index.html
+
+* neutron.conf
+* ml2_conf.ini
+* linuxbridge_agent.ini
+* openvswitch_agent.ini
+* dhcp_agent.ini
+* l3_agent.ini
+* metadata_agent.ini
+* metering_agent.ini
+
+https://docs.openstack.org/ocata/config-reference/networking/lbaas.html
+
+* neutron_lbaas.conf
+* lbaas_agent.ini
+* services_lbaas.conf
+* octavia.conf
+
+https://docs.openstack.org/ocata/config-reference/networking/fwaas.html
+
+* fwaas_driver.ini
+
+---
+
 OpenStack Neutron Plugins and Agents
 
 http://www.innervoice.in/blogs/2015/03/31/openstack-neutron-plugins-and-agents/
