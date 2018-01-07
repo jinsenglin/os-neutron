@@ -126,3 +126,13 @@ service neutron-l3-agent restart
 Tips: console script
 
 see ENTRYPOINT.md 
+
+# SUMMARY
+
+neutron/neutron.conf
+
+```
+[DEFAULT]
+core_plugin = ml2 
+service_plugins = router,fwaas,lbaasv2
+```
