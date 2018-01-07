@@ -136,3 +136,29 @@ neutron/neutron.conf
 core_plugin = ml2 
 service_plugins = router,fwaas,lbaasv2
 ```
+
+neutron/setup.cfg
+
+```
+[entry_points]
+neutron.core_plugins =
+    ml2 = neutron.plugins.ml2.plugin:Ml2Plugin
+neutron.service_plugins =
+    router = neutron.services.l3_router.l3_router_plugin:L3RouterPlugin
+```
+
+neutron-fwaas/setup.cfg
+
+```
+[entry_points]
+neutron.service_plugins =
+    firewall = neutron_fwaas.services.firewall.fwaas_plugin:FirewallPlugin
+```
+
+neutron-lbaas/setup.cfg
+
+```
+[entry_points]
+neutron.service_plugins =
+    lbaasv2 = neutron_lbaas.services.loadbalancer.plugin:LoadBalancerPluginv2
+```
