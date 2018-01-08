@@ -324,7 +324,7 @@ def load_paste_app(app_name):
 ```
 
 ```
-# https://docs.openstack.org/oslo.service/latest/configuration/index.html#wsgi
+# ref: https://docs.openstack.org/oslo.service/latest/configuration/index.html#wsgi
 
 Usage
 
@@ -338,6 +338,12 @@ Configuration
 
 [DEFAULT]
 api_paste_config = api-paste.ini # Default
+
+# ref: https://media.readthedocs.org/pdf/pastedeploy/latest/pastedeploy.pdf
+
+Paste Deployment is a system for finding and configuring WSGI applications and servers.
+
+For WSGI application consumers it provides a single, simple function (loadapp) for loading a WSGI application from a configuration file or a Python Egg.
 ```
 
 ```
