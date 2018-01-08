@@ -382,6 +382,30 @@ def pipeline_factory(loader, global_conf, **local_conf):
     return app
 ```
 
+```
+# ref: Ocata Neutron代碼分析（四）——api-paste.ini分析 https://hk.saowen.com/a/03fb8fc302b77a111c9fcb6859147f534cf7fd5f66c3746c844ae349cad69091
+
+class APIRouter(base_wsgi.Router):
+
+    @classmethod
+    def factory(cls, global_config, **local_config):
+        return cls(**local_config)
+
+    def __init__(self, **local_config):
+        ......
+
+---
+
+def plugin_aware_extension_middleware_factory(global_config, **local_config):
+    """Paste factory."""
+    def _factory(app):
+        ext_mgr = PluginAwareExtensionManager.get_instance()
+        return ExtensionMiddleware(app, ext_mgr=ext_mgr)
+    return _factory
+
+該函數中只包含一個_factory函數，函數中首先獲取了PluginAwareExtensionManager的實例，該類是一個單例模式的實現，在APIRouter初始化時初始化。接着，將ext_mgr作為參數初始化ExtensionMiddleware，ExtensionMiddleware的構造函數主要是將extensions中的resource進行map，而頂級的resource（network、subnet和port）將在APIRouter的構造函數中進行map。
+```
+
 # Entrypoint
 
 Tips: console script
