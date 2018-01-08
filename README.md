@@ -367,6 +367,21 @@ use 指定要調用的函數為 /neutron/auth.py 的 pipeline_factory。
 noauth 和 keystone 作為參數 local_conf（dict）傳入該函數。
 ```
 
+```
+# ref: Ocata Neutron代碼分析（四）——api-paste.ini分析 https://hk.saowen.com/a/03fb8fc302b77a111c9fcb6859147f534cf7fd5f66c3746c844ae349cad69091
+
+def pipeline_factory(loader, global_conf, **local_conf):
+    """Create a paste pipeline based on the 'auth_strategy' config option."""
+    pipeline = local_conf[cfg.CONF.auth_strategy]           # 配置文檔中auth_strategy設置是否需要驗證token（口令）
+    pipeline = pipeline.split()                             # pipeline：str -> list
+    filters = [loader.get_filter(n) for n in pipeline[:-1]] # 獲取所有的filters（排除最後一個neutronapiapp_v2_0，因為它是app），形成list
+    app = loader.get_app(pipeline[-1])                      # neutronapiapp_v2_0中調用的類（APIRouter）在這一步被初始化，下一節分析
+    filters.reverse()                                       # 反向filters列表，最靠近APIRouter的filter最先執行，即第一個執行的是extensions filter
+    for filter in filters:
+        app = filter(app)                                   # 將app作為參數依次傳入每個filter
+    return app
+```
+
 # Entrypoint
 
 Tips: console script
