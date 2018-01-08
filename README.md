@@ -121,13 +121,65 @@ os-network update for plus fwaasv1
 service neutron-l3-agent restart
 ```
 
+# Trace from service XXXX start
+
+e.g. neutron-server
+
+soft link file /etc/systemd/system/multi-user.target.wants/neutron-server.service -> /lib/systemd/system/neutron-server.service
+
+```
+# file: /lib/systemd/system/neutron-server.service
+
+[Service]
+ExecStart=/etc/init.d/neutron-server systemd-start
+```
+
+```
+# file: /etc/init.d/neutron-server
+
+PROJECT_NAME=neutron
+NAME=${PROJECT_NAME}-server
+
+if [ -z "${DAEMON}" ] ; then
+        DAEMON=/usr/bin/${NAME}
+fi
+
+do_systemd_start() {
+        exec $DAEMON $DAEMON_ARGS
+}
+
+case "$1" in
+systemd-start)
+        do_systemd_start
+;;
+esac
+```
+
+```
+# file: /usr/bin/neurton-server
+
+from neutron.cmd.eventlet.server import main
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+# ps aux | grep neurton-server
+
+/usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
+/usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
+/usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
+/usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
+/usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
+```
+
 # Entrypoint
 
 Tips: console script
 
 see ENTRYPOINT.md 
 
-# SUMMARY 1
+# Summary 1
 
 /etc/neutron/neutron.conf
 
@@ -163,7 +215,7 @@ neutron.service_plugins =
     lbaasv2 = neutron_lbaas.services.loadbalancer.plugin:LoadBalancerPluginv2
 ```
 
-# SUMMARY 2
+# Summary 2
 
 /etc/neutron/plugins/ml2/ml2_conf.ini
 
@@ -189,7 +241,7 @@ neutron.ml2.extension_drivers =
     port_security = neutron.plugins.ml2.extensions.port_security:PortSecurityExtensionDriver
 ```
 
-# SUMMARY 3
+# Summary 3
 
 Q: service plugin vs. service provider?
 
