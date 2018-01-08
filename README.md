@@ -187,6 +187,66 @@ if __name__ == "__main__":
 /usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
 ```
 
+```
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/cmd/eventlet/server/__init__.py
+
+from neutron import server
+from neutron.server import wsgi_eventlet
+
+
+def main():
+    server.boot_server(wsgi_eventlet.eventlet_wsgi_server)
+ 
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/server/__init__.py 
+
+def boot_server(server_func):
+    _init_configuration()
+    try:
+        server_func()
+    except KeyboardInterrupt:
+        pass
+    except RuntimeError as e:
+        sys.exit(_("ERROR: %s") % e)
+
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/server/wsgi_eventlet.py
+
+from neutron import service
+
+
+def eventlet_wsgi_server():
+    neutron_api = service.serve_wsgi(service.NeutronApiService)
+    start_api_and_rpc_workers(neutron_api)
+
+
+def start_api_and_rpc_workers(neutron_api):
+    try:
+        worker_launcher = service.start_all_workers()
+
+        pool = eventlet.GreenPool()
+        api_thread = pool.spawn(neutron_api.wait)
+        plugin_workers_thread = pool.spawn(worker_launcher.wait)
+
+        # api and other workers should die together. When one dies,
+        # kill the other.
+        api_thread.link(lambda gt: plugin_workers_thread.kill())
+        plugin_workers_thread.link(lambda gt: api_thread.kill())
+
+        pool.waitall()
+    except NotImplementedError:
+        LOG.info("RPC was already started in parent process by "
+                 "plugin.")
+
+        neutron_api.wait()
+
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py
+
+class NeutronApiService(WsgiService): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L68
+
+def serve_wsgi(cls): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L82
+
+def start_all_workers(): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L262
+```
+
 # Entrypoint
 
 Tips: console script
