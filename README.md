@@ -208,6 +208,7 @@ service_providers example 2 (configure_neutron_lbaasv2_haproxy)
 
 ```
 # file: /etc/neutron/neutron_lbaas.conf
+
 [service_providers]
 service_provider = LOADBALANCERV2:Haproxy:neutron_lbaas.drivers.haproxy.plugin_driver.HaproxyOnHostPluginDriver:default
 ```
