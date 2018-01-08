@@ -113,6 +113,8 @@ Neutron中的service plugin 都定义在 neutron/neutron/services  这个目录,
 
 Neutron/ServiceTypeFramework
 
+Currently considering model is "one service plugin - multiple drivers".
+
 ![scenario](https://wiki.openstack.org/w/images/7/77/Call_dispatching_workflow.png)
 
 ---
