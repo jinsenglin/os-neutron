@@ -247,6 +247,26 @@ def serve_wsgi(cls): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2
 def start_all_workers(): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L262
 ```
 
+Next ?
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L85
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L75
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L78
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L72
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L62
+
+Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L289
+
+Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/neutron/common/config.py#L122 # loader = wsgi.Loader(cfg.CONF); app = loader.load_app(app_name) # app_name = 'neutron'
+
+Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/neutron/common/config.py#L28 # from oslo_service import wsgi
+
+Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/etc/api-paste.ini#L1 # [composite:neutron]
+
 # Entrypoint
 
 Tips: console script
