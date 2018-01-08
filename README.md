@@ -352,6 +352,12 @@ use = egg:Paste#urlmap
 use = call:neutron.auth:pipeline_factory
 noauth = cors http_proxy_to_wsgi request_id catch_errors extensions neutronapiapp_v2_0
 keystone = cors http_proxy_to_wsgi request_id catch_errors authtoken keystonecontext extensions neutronapiapp_v2_0
+
+[filter:extensions]
+paste.filter_factory = neutron.api.extensions:plugin_aware_extension_middleware_factory
+
+[app:neutronapiapp_v2_0]
+paste.app_factory = neutron.api.v2.router:APIRouter.factory
 ```
 
 ```
