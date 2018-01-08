@@ -406,6 +406,12 @@ def plugin_aware_extension_middleware_factory(global_config, **local_config):
 該函數中只包含一個_factory函數，函數中首先獲取了PluginAwareExtensionManager的實例，該類是一個單例模式的實現，在APIRouter初始化時初始化。接着，將ext_mgr作為參數初始化ExtensionMiddleware，ExtensionMiddleware的構造函數主要是將extensions中的resource進行map，而頂級的resource（network、subnet和port）將在APIRouter的構造函數中進行map。
 ```
 
+```
+# ref: http://routes.readthedocs.io/en/latest/
+
+Routes is a Python re-implementation of the Rails routes system for mapping URLs to application actions, and conversely to generate URLs. Routes makes it easy to create pretty and concise URLs that are RESTful with little effort.
+```
+
 # Entrypoint
 
 Tips: console script
