@@ -240,34 +240,126 @@ def start_api_and_rpc_workers(neutron_api):
 
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py
 
-class NeutronApiService(WsgiService): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L68
+from oslo_config import cfg
+from neutron.common import config
 
-def serve_wsgi(cls): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L82
+
+class WsgiService(object):
+    """Base class for WSGI based services.
+    For each api you define, you must also define these flags:
+    :<api>_listen: The address on which to listen
+    :<api>_listen_port: The port on which to listen
+    """
+
+    def __init__(self, app_name):
+        self.app_name = app_name
+        self.wsgi_app = None
+
+    def start(self):
+        self.wsgi_app = _run_wsgi(self.app_name)
+
+    def wait(self):
+        self.wsgi_app.wait()
+
+
+class NeutronApiService(WsgiService):
+    """Class for neutron-api service."""
+    def __init__(self, app_name):
+        profiler.setup('neutron-server', cfg.CONF.host)
+        super(NeutronApiService, self).__init__(app_name)
+
+    @classmethod
+    def create(cls, app_name='neutron'):
+        # Setup logging early
+        config.setup_logging()
+        service = cls(app_name)
+        return service
+
+
+def serve_wsgi(cls):
+
+    try:
+        service = cls.create()
+        service.start()
+    except Exception:
+        with excutils.save_and_reraise_exception():
+            LOG.exception('Unrecoverable error: please check log '
+                          'for details.')
+
+    registry.notify(resources.PROCESS, events.BEFORE_SPAWN, service)
+    return service
+
 
 def start_all_workers(): https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L262
+
+
+def _run_wsgi(app_name):
+    app = config.load_paste_app(app_name)
+    if not app:
+        LOG.error('No known API applications configured.')
+        return
+    return run_wsgi_app(app)
+
+
+def run_wsgi_app(app):
+    server = wsgi.Server("Neutron")
+    server.start(app, cfg.CONF.bind_port, cfg.CONF.bind_host,
+                 workers=_get_api_workers())
+    LOG.info("Neutron service started, listening on %(host)s:%(port)s",
+             {'host': cfg.CONF.bind_host, 'port': cfg.CONF.bind_port})
+    return server
+
+# file: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/neutron/common/config.py
+
+from oslo_service import wsgi
+
+
+def load_paste_app(app_name):
+    """Builds and returns a WSGI app from a paste config file.
+    :param app_name: Name of the application to load
+    """
+    loader = wsgi.Loader(cfg.CONF)
+    app = loader.load_app(app_name)
+    return app
 ```
 
-Next ?
+```
+# https://docs.openstack.org/oslo.service/latest/configuration/index.html#wsgi
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L85
+Usage
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L75
+from oslo_config import cfg
+from oslo_service import service
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L78
+CONF = cfg.CONF
+launcher = service.launch(CONF, service, workers=2)
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L72
+Configuration
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L62
+[DEFAULT]
+api_paste_config = api-paste.ini # Default
+```
 
-Tips 1: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/service.py#L289
+```
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/etc/api-paste.ini
 
-Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/neutron/common/config.py#L122 # loader = wsgi.Loader(cfg.CONF); app = loader.load_app(app_name) # app_name = 'neutron'
+[composite:neutron]
+use = egg:Paste#urlmap
+/: neutronversions_composite
+/v2.0: neutronapi_v2_0
 
-Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/neutron/common/config.py#L28 # from oslo_service import wsgi
+[composite:neutronapi_v2_0]
+use = call:neutron.auth:pipeline_factory
+noauth = cors http_proxy_to_wsgi request_id catch_errors extensions neutronapiapp_v2_0
+keystone = cors http_proxy_to_wsgi request_id catch_errors authtoken keystonecontext extensions neutronapiapp_v2_0
+```
 
-Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/etc/api-paste.ini#L1 # [composite:neutron]
+```
+# ref: Ocata Neutron代碼分析（四）——api-paste.ini分析 https://hk.saowen.com/a/03fb8fc302b77a111c9fcb6859147f534cf7fd5f66c3746c844ae349cad69091
 
-Tips 1: https://docs.openstack.org/oslo.service/latest/
+use 指定要調用的函數為 /neutron/auth.py 的 pipeline_factory。
+noauth 和 keystone 作為參數 local_conf（dict）傳入該函數。
+```
 
 # Entrypoint
 
