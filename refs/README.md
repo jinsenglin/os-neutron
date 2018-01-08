@@ -111,6 +111,12 @@ Neutron中的service plugin 都定义在 neutron/neutron/services  这个目录,
 
 ---
 
+Neutron/ServiceTypeFramework
+
+![scenario](https://wiki.openstack.org/w/images/7/77/Call_dispatching_workflow.png)
+
+---
+
 学习 Neutron 系列文章：Neutron 所实现的虚拟化网络
 
 http://www.cnblogs.com/sammyliu/p/4622563.html
