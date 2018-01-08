@@ -139,9 +139,19 @@ ExecStart=/etc/init.d/neutron-server systemd-start
 
 PROJECT_NAME=neutron
 NAME=${PROJECT_NAME}-server
+[ -r /etc/default/neutron-server ] && . /etc/default/neutron-server
+[ -n "$NEUTRON_PLUGIN_CONFIG" ] && DAEMON_ARGS="--config-file=$NEUTRON_PLUGIN_CONFIG"
 
 if [ -z "${DAEMON}" ] ; then
         DAEMON=/usr/bin/${NAME}
+fi
+
+if [ -z "${CONFIG_FILE}" ] ; then
+        CONFIG_FILE=/etc/${PROJECT_NAME}/${PROJECT_NAME}.conf
+fi
+
+if [ -z "${NO_OPENSTACK_CONFIG_FILE_DAEMON_ARG}" ] ; then
+    DAEMON_ARGS="--config-file=${CONFIG_FILE} ${DAEMON_ARGS}"
 fi
 
 do_systemd_start() {
@@ -153,6 +163,10 @@ systemd-start)
         do_systemd_start
 ;;
 esac
+
+# file: /etc/default/neutron-server
+
+NEUTRON_PLUGIN_CONFIG="/etc/neutron/plugins/ml2/ml2_conf.ini"
 ```
 
 ```
