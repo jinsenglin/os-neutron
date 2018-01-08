@@ -267,6 +267,8 @@ Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a
 
 Tips 1: https://github.com/openstack/neutron/blob/7c1e21a3f35e80e176dfc025eb6f4a0024cb137c/etc/api-paste.ini#L1 # [composite:neutron]
 
+Tips 1: https://docs.openstack.org/oslo.service/latest/
+
 # Entrypoint
 
 Tips: console script
