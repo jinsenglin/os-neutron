@@ -401,6 +401,34 @@ def plugin_aware_extension_middleware_factory(global_config, **local_config):
 Routes is a Python re-implementation of the Rails routes system for mapping URLs to application actions, and conversely to generate URLs. Routes makes it easy to create pretty and concise URLs that are RESTful with little effort.
 ```
 
+```
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/api/v2/router.py#L66
+
+    @classmethod
+    def factory(cls, global_config, **local_config):
+        if cfg.CONF.web_framework == 'pecan':
+            return pecan_app.v2_factory(global_config, **local_config)
+        return cls(**local_config)
+
+    def __init__(self, **local_config):
+        mapper = routes_mapper.Mapper()
+        manager.init()
+        plugin = directory.get_plugin()
+        ext_mgr = extensions.PluginAwareExtensionManager.get_instance()
+        ext_mgr.extend_resources("2.0", attributes.RESOURCE_ATTRIBUTE_MAP)
+
+        col_kwargs = dict(collection_actions=COLLECTION_ACTIONS,
+                          member_actions=MEMBER_ACTIONS)
+
+# NOTE cfg.CONF.web_framework == 'pecan' in my lab environment
+```
+
+```
+# ref: https://pecan.readthedocs.io/en/latest/
+
+Pecan was created to fill a void in the Python web-framework world – a very lightweight framework that provides object-dispatch style routing. Pecan does not aim to be a “full stack” framework, and therefore includes no out of the box support for things like sessions or databases (although tutorials are included for integrating these yourself in just a few lines of code). Pecan instead focuses on HTTP itself.
+```
+
 # Entrypoint
 
 Tips: console script
