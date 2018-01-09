@@ -207,13 +207,7 @@ if __name__ == "__main__":
 /usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
 ```
 
-Source code located in the neutron/neutron/
-
-* cmd/eventlet/server/__init__.py
-* server/__init__.py
-* server/wsgi_eventlet.py
-* service.py
-* common/config.py 
+Source code in the neutron/neutron/
 
 ```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/cmd/eventlet/server/__init__.py
