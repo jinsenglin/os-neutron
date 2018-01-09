@@ -396,13 +396,10 @@ def plugin_aware_extension_middleware_factory(global_config, **local_config):
 ```
 
 ```
-# ref: http://routes.readthedocs.io/en/latest/
-
-Routes is a Python re-implementation of the Rails routes system for mapping URLs to application actions, and conversely to generate URLs. Routes makes it easy to create pretty and concise URLs that are RESTful with little effort.
-```
-
-```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/api/v2/router.py#L66
+
+from neutron.pecan_wsgi import app as pecan_app
+
 
     @classmethod
     def factory(cls, global_config, **local_config):
@@ -423,15 +420,57 @@ Routes is a Python re-implementation of the Rails routes system for mapping URLs
 # NOTE cfg.CONF.web_framework == 'pecan' in my lab environment
 ```
 
+see HTTP-API-ROUTING.md
+
 ```
-# ref: https://pecan.readthedocs.io/en/latest/
+# file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/pecan_wsgi/app.py
 
-Pecan was created to fill a void in the Python web-framework world – a very lightweight framework that provides object-dispatch style routing. Pecan does not aim to be a “full stack” framework, and therefore includes no out of the box support for things like sessions or databases (although tutorials are included for integrating these yourself in just a few lines of code). Pecan instead focuses on HTTP itself.
+import pecan
 
-# ref: http://pecan.readthedocs.io/en/latest/routing.html
+from neutron.pecan_wsgi.controllers import root
+from neutron.pecan_wsgi import hooks
+from neutron.pecan_wsgi import startup
 
-Pecan uses a routing strategy known as object-dispatch to map an HTTP request to a controller, and then the method to call. Object-dispatch begins by splitting the path into a list of components and then walking an object path, starting at the root controller. You can imagine your application’s controllers as a tree of objects (branches of the object tree map directly to URL paths).
+
+def versions_factory(global_config, **local_config):
+    return pecan.make_app(root.RootController())
+
+
+def v2_factory(global_config, **local_config):
+    # Processing Order:
+    #   As request enters lower priority called before higher.
+    #   Reponse from controller is passed from higher priority to lower.
+    app_hooks = [
+        hooks.UserFilterHook(),  # priority 90
+        hooks.ContextHook(),  # priority 95
+        hooks.ExceptionTranslationHook(),  # priority 100
+        hooks.BodyValidationHook(),  # priority 120
+        hooks.OwnershipValidationHook(),  # priority 125
+        hooks.QuotaEnforcementHook(),  # priority 130
+        hooks.NotifierHook(),  # priority 135
+        hooks.QueryParametersHook(),  # priority 139
+        hooks.PolicyHook(),  # priority 140
+    ]
+    app = pecan.make_app(root.V2Controller(),
+                         debug=False,
+                         force_canonical=False,
+                         hooks=app_hooks,
+                         guess_content_type_from_ext=True)
+    startup.initialize_all()
+    return app
 ```
+
+???
+* core_plugin
+* service_plugins
+* stevedore
+* https://github.com/openstack/neutron-lib/tree/master/neutron_lib/api/definitions
+
+Example Networking API Routes
+* http://os-controller:9696/v2.0/networks
+* http://os-controller:9696/v2.0/security-groups
+* http://os-controller:9696/v2.0/fw/firewalls
+* http://os-controller:9696/v2.0/lbaas/loadbalancers
 
 # Entrypoint
 
