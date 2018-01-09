@@ -125,6 +125,16 @@ service neutron-l3-agent restart
 
 ```
 -----------------------------
+|   WHATEVER DRIVER         |
+-----------------------------
+|   python::stevedore       |
+-----------------------------
+|   ?                       |
+-----------------------------
+|   ?                       |
+-----------------------------
+|   ?                       |
+-----------------------------
 |   python::neutron-lib     |
 -----------------------------
 |   python::pecan           |
@@ -672,7 +682,6 @@ def initialize_all():
 ???
 * core_plugin
 * service_plugins
-* stevedore
 * https://github.com/openstack/neutron-lib/tree/master/neutron_lib/api/definitions
 
 Example Networking API Routes
