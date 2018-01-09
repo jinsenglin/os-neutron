@@ -125,6 +125,8 @@ service neutron-l3-agent restart
 
 ```
 -----------------------------
+|   python::neutron-lib     |
+-----------------------------
 |   python::pecan           |
 -----------------------------
 |   WSGI                    |
@@ -135,7 +137,7 @@ service neutron-l3-agent restart
 -----------------------------
 |   python::oslo-config     |
 -----------------------------
-|   python                  |
+|   python::neutron         |
 -----------------------------
 |   bash                    |
 -----------------------------
