@@ -4,6 +4,14 @@ Those provider options should be specified in multiline form, one per provider i
 
 ```
 <service_type>:<name>:<driver>[:default]
+
+Where: - service_type is a string identifying a service, one of allowed services. In Havana the next list of services will be allowed: LOADBALANCER, FIREWALL, VPN, ROUTER.
+- name - user-facing representation of the provider
+- driver - driver identification. That could be a classpath, or some other identification (stevedore usage is considered)
+- default option. If specified, the provider becomes default for given service type.
+
+There could be only one default provider for a given service type, driver identification should be unique across all providers.
+Name and service type must also be unique. 
 ```
 
 Example of neutron.conf section:
