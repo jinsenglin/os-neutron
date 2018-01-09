@@ -123,6 +123,26 @@ service neutron-l3-agent restart
 
 # Trace from service XXXX start
 
+```
+-----------------------------
+|   python::pecan           |
+-----------------------------
+|   WSGI                    |
+-----------------------------
+|   python::paste-deploy    |
+-----------------------------
+|   python::oslo-service    |
+-----------------------------
+|   python::oslo-config     |
+-----------------------------
+|   python                  |
+-----------------------------
+|   bash                    |
+-----------------------------
+|   systemd / systemctl     |
+-----------------------------
+```
+
 e.g. neutron-server
 
 soft link file /etc/systemd/system/multi-user.target.wants/neutron-server.service -> /lib/systemd/system/neutron-server.service
@@ -187,7 +207,13 @@ if __name__ == "__main__":
 /usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
 ```
 
-see OSLO-CONFIG.md
+Source code located in the neutron/neutron/
+
+* cmd/eventlet/server/__init__.py
+* server/__init__.py
+* server/wsgi_eventlet.py
+* service.py
+* common/config.py 
 
 ```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/cmd/eventlet/server/__init__.py
@@ -324,6 +350,8 @@ def load_paste_app(app_name):
     app = loader.load_app(app_name)
     return app
 ```
+
+see OSLO-CONFIG.md
 
 see OSLO-SERVICE.md
 
