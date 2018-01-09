@@ -420,7 +420,7 @@ from neutron.pecan_wsgi import app as pecan_app
 # NOTE cfg.CONF.web_framework == 'pecan' in my lab environment
 ```
 
-see HTTP-API-ROUTING.md
+see PECAN-VS-ROUTES.md
 
 ```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/pecan_wsgi/app.py
