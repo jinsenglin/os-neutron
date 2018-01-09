@@ -187,6 +187,8 @@ if __name__ == "__main__":
 /usr/bin/python /usr/bin/neutron-server --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/ml2_conf.ini --log-file=/var/log/neutron/neutron-server.log
 ```
 
+see OSLO-CONFIG.md
+
 ```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/neutron/cmd/eventlet/server/__init__.py
 
@@ -323,28 +325,9 @@ def load_paste_app(app_name):
     return app
 ```
 
-```
-# ref: https://docs.openstack.org/oslo.service/latest/configuration/index.html#wsgi
+see OSLO-SERVICE.md
 
-Usage
-
-from oslo_config import cfg
-from oslo_service import service
-
-CONF = cfg.CONF
-launcher = service.launch(CONF, service, workers=2)
-
-Configuration
-
-[DEFAULT]
-api_paste_config = api-paste.ini # Default
-
-# ref: https://media.readthedocs.org/pdf/pastedeploy/latest/pastedeploy.pdf
-
-Paste Deployment is a system for finding and configuring WSGI applications and servers.
-
-For WSGI application consumers it provides a single, simple function (loadapp) for loading a WSGI application from a configuration file or a Python Egg.
-```
+see PASTE-DEPLOY.md
 
 ```
 # file: https://github.com/openstack/neutron/blob/adc344c065c4c6bb2e29e9a6c9a6618163ddfbe7/etc/api-paste.ini

@@ -1,0 +1,18 @@
+REF https://docs.openstack.org/oslo.config/latest/reference/cfg.html
+
+The config manager has two CLI options defined by default, –config-file and –config-dir:
+
+```
+class ConfigOpts(object):
+
+    def __call__(self, ...):
+
+        opts = [
+            MultiStrOpt('config-file',
+                    ...),
+            StrOpt('config-dir',
+                   ...),
+        ]
+
+        self.register_cli_opts(opts)
+```
