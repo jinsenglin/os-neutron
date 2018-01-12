@@ -14,3 +14,7 @@
 	path = networking-odl
 	url = https://github.com/openstack/networking-odl.git
 	branch = stable/pike
+[submodule "neutron-lib"]
+	path = neutron-lib
+	url = https://github.com/openstack/neutron-lib.git
+	branch = stable/pike
