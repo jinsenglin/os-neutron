@@ -139,3 +139,14 @@ http://www.cnblogs.com/sammyliu/p/4622563.html
 
 ![scenario](https://wiki.openstack.org/w/images/thumb/9/99/Dvr-architecture.png/500px-Dvr-architecture.png)
 
+---
+
+Additional Posts
+
+* neutron plugin 与 extension 编写流程 http://blog.csdn.net/u010341430/article/details/51332171
+* 通过neutron的extension添加restful接口和代码跨版本迁移 http://blog.csdn.net/liu_baoqing/article/details/54947082
+* openstack之neutron代码分析---(1)neutron初始化流程 http://blog.csdn.net/u013920085/article/details/50099147
+* 如何区分 OpenStack Neutron Extension 和 Plugin http://www.cnblogs.com/zhutianshi/p/3902315.html
+* 怎样写 OpenStack Neutron 的 Extension （一）http://www.aboutyun.com/thread-10480-1-1.html
+* NEUTRON中的plugin和extension介绍及加载机制 http://blog.csdn.net/llxx1234/article/details/60590575
+* openstack plugin 之（三）怎样写 OpenStack Neutron 的 Extension http://blog.csdn.net/hejin_some/article/details/72730156
