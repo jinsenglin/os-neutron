@@ -147,6 +147,12 @@ https://github.com/lorin/openstack-hackspace/blob/master/under-the-hood-network.
 
 ---
 
+http://superuser.openstack.org/articles/everything-you-need-to-know-to-get-started-with-neutron-f90e2797-26b7-4d1c-84d8-effef03f11d2/
+
+![scenario](https://aptira.com/wp-content/uploads/2016/03/41.png)
+
+---
+
 Additional Posts
 
 * neutron plugin 与 extension 编写流程 http://blog.csdn.net/u010341430/article/details/51332171
