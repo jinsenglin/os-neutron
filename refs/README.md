@@ -141,6 +141,12 @@ http://www.cnblogs.com/sammyliu/p/4622563.html
 
 ---
 
+https://github.com/lorin/openstack-hackspace/blob/master/under-the-hood-network.md
+
+![scenario](https://github.com/lorin/openstack-hackspace/raw/master/network-under-hood.png)
+
+---
+
 Additional Posts
 
 * neutron plugin 与 extension 编写流程 http://blog.csdn.net/u010341430/article/details/51332171
